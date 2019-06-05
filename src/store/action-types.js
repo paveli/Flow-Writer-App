@@ -1,0 +1,3 @@
+export const UPDATE_TEXT = "UPDATE_TEXT";
+export const UPDATE_LATEST_TEXT = "UPDATE_LATEST_TEXT";
+export const UPDATE_TITLE = "UPDATE_TITLE";
