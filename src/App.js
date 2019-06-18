@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 
 import Menu from "./components/Menu";
 import TextEditor from "./components/TextEditor";
+import Onboarding from "./components/Onboarding";
+
 import reducer from "./store/reducer";
 
 import "./App.css";
@@ -15,6 +17,7 @@ function App() {
 		<Provider store={store}>
 			<Menu />
 			<TextEditor />
+			<Onboarding />
 		</Provider>
 	);
 }

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import AutosizeInput from "./AutosizeInput";
 
+import Clipboard from "../includes/Clipboard";
+
 import { updateText, updateLatestText, updateTitle } from "../store/actions";
 
 function mapDisptchToProps(dispatch) {
@@ -27,7 +29,7 @@ const Editor = styled(AutosizeInput)`
     margin: 0px;
     padding: 0px;
     outline: none;
-    font-size: 2rem;
+    font-size: 2.1rem;
 	caret-color: deepskyblue;
 
 
@@ -44,7 +46,7 @@ const Editor = styled(AutosizeInput)`
 const Paragraph = styled.p`
 	display: block;
 	width: 100%;
-	min-height: 2rem;
+	min-height: 2.1rem;
 
 	&:last-of-type {
 		width: auto;
@@ -68,9 +70,13 @@ const PreviewWrapper = styled.div`
 	width: 70%;
 	max-width: 1000px;
 	height: 50%;
-	font-size: 2rem;
+	font-size: 2.1rem;
 	color: lightgrey;
 	overflow: hidden;
+
+	@media (max-width: 450px) {
+		width: 95%;
+	}
 `;
 
 const Wrapper = styled.div`
@@ -85,15 +91,24 @@ class TextEditor extends Component {
 	}
 
 	state = {
-		// text: "",
-		// latestText: "",
 		textParagraphCount: 0
 	};
 
 	componentDidUpdate() {
-		console.log("componentDidUpdate");
 		if (this.props.title) {
 			document.title = this.props.title;
+		}
+
+		if (window.onbeforeunload === null && this.props.text.length > 0) {
+			window.onbeforeunload = function(e) {
+				e = e || window.event;
+				// For IE and Firefox prior to version 4
+				if (e) {
+					e.returnValue = "Don't forget to save (CTRL+C) your text.";
+				}
+				// For Safari
+				return "Don't forget to save (CTRL+C) your text.";
+			};
 		}
 	}
 
@@ -125,7 +140,7 @@ class TextEditor extends Component {
 			}
 
 			if (keyPressed === 13) {
-				latestText += "\n ";
+				latestText += "\n";
 				paragpraphIncerement++;
 			}
 
@@ -148,14 +163,37 @@ class TextEditor extends Component {
 				onClick={() => {
 					this.editorRef.current.focus({ preventScroll: false });
 				}}
+				onTouchEnd={() => {
+					this.editorRef.current.focus({ preventScroll: false });
+				}}
 			>
 				<PreviewWrapper>
 					{this.props.text.split("\n").map((value, index) => {
 						if (this.state.textParagraphCount !== index) {
-							return <Paragraph key={index}>{value}</Paragraph>;
+							return (
+								<Paragraph
+									key={index}
+									onTouchEnd={() => {
+										Clipboard(
+											this.props.text + this.props.latestText,
+											"Your text is copied to clipboard. \nPaste it to your favorite editor."
+										);
+									}}
+								>
+									{value}
+								</Paragraph>
+							);
 						} else {
 							return (
-								<Paragraph key={index}>
+								<Paragraph
+									key={index}
+									onTouchEnd={() => {
+										Clipboard(
+											this.props.text + this.props.latestText,
+											"Your text is copied to clipboard. \nPaste it to your favorite editor."
+										);
+									}}
+								>
 									{value}
 									<Editor
 										ref={this.editorRef}

@@ -1,19 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import clipboard from "clipboard-polyfill";
 import styled from "styled-components";
-import { Box, Flex } from "rebass";
+import { Button } from "rebass";
+import Hotkeys from "react-hot-keys";
+
+import Clipboard from "../includes/Clipboard";
 
 const Image = styled.img`
 	height: 2rem;
 	width: 1.6rem;
 	margin: 0px 10px 0px 10px;
-	&:hover {
-		cursor: pointer;
-	}
-`;
-
-const Span = styled(Box)`
 	&:hover {
 		cursor: pointer;
 	}
@@ -28,33 +24,34 @@ function mapStateToProps(state) {
 
 class CopyToClipboard extends Component {
 	handleClick = () => {
-		clipboard.writeText(this.props.text + this.props.latestText).then(res => {
-			alert(
-				"Your text is copied to clipboard. \nPaste it to your favorite editor."
-			);
-		});
+		Clipboard(
+			this.props.text + this.props.latestText,
+			"Your text is copied to clipboard. \nPaste it to your favorite editor."
+		);
 	};
 
 	render() {
 		return (
-			<Flex>
-				{this.props.image ? (
-					<Box>
+			<Hotkeys
+				keyName="ctrl+c"
+				onKeyUp={this.handleClick}
+				filter={event => {
+					return true;
+				}}
+			>
+				<Button onClick={this.handleClick} bg="white" color="black" border="2">
+					{this.props.image ? (
 						<Image
 							src={this.props.image}
 							alt={this.props.alt}
 							onClick={this.handleClick}
 						/>
-					</Box>
-				) : (
-					""
-				)}
-				{this.props.message ? (
-					<Span onClick={this.handleClick}>{this.props.message}</Span>
-				) : (
-					""
-				)}
-			</Flex>
+					) : (
+						""
+					)}
+					{this.props.message ? this.props.message : ""}
+				</Button>
+			</Hotkeys>
 		);
 	}
 }

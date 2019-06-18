@@ -216,7 +216,7 @@ class AutosizeInput extends Component {
 		return (
 			<span className={this.props.className} style={wrapperStyle}>
 				{this.renderStyles()}
-				<input {...inputProps} ref={this.inputRef} />
+				<input {...inputProps} ref={this.inputRef} id="currentInput" />
 				<span ref={this.sizerRef} style={sizerStyle}>
 					{sizerValue}
 				</span>
