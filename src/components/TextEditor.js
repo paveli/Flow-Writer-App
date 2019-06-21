@@ -80,6 +80,7 @@ const PreviewWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+	background: white;
 	width: 100%;
 	height: 100%;
 `;
@@ -159,7 +160,7 @@ class TextEditor extends Component {
 
 	render() {
 		return (
-			<Wrapper
+			<Wrapper id="TextEditor"
 				onClick={() => {
 					this.editorRef.current.focus({ preventScroll: false });
 				}}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button } from "rebass";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Twitter, Github } from "styled-icons/boxicons-logos";
+import { Twitter, Github, Telegram } from "styled-icons/boxicons-logos";
 import { GrinWink, Keyboard } from "styled-icons/fa-regular";
 import * as Cookies from "js-cookie";
 
@@ -38,6 +38,7 @@ const Message = styled(Card)`
 `;
 
 const TwitterIcon = styled(Twitter)`
+	margin-right: -3px;
 	&:hover {
 		color: #38a1f3;
 	}
@@ -46,6 +47,12 @@ const TwitterIcon = styled(Twitter)`
 const GithubIcon = styled(Github)`
 	&:hover {
 		color: black;
+	}
+`;
+
+const TelegramIcon = styled(Telegram)`
+	&:hover {
+		color: #0088cc;
 	}
 `;
 
@@ -93,11 +100,15 @@ class Onboarding extends Component {
 				boxShadow="0 2px 16px rgba(0, 0, 0, 0.25)"
 			>
 				<p style={{ textAlign: "center" }}>
-					<NewFile image="new.svg" alt="New text" message="New text (ctrl+n)" />{" "}
+					<NewFile
+						image="new.svg"
+						alt="New text"
+						message="New text (ctrl+shift+n)"
+					/>{" "}
 					<CopyToClipboard
 						image="copy.svg"
 						alt="Copy text to clipboard"
-						message="Copy text (ctrl+c)"
+						message="Copy text (ctrl+shift+c)"
 					/>
 				</p>
 				<br />
@@ -129,6 +140,12 @@ class Onboarding extends Component {
 						ref={this.startButtonRef}
 						onClick={() => {
 							this.setState({ showOnboarding: "false" });
+							let TextEditor = document.getElementById("TextEditor");
+							TextEditor.requestFullscreen().then(resolve => {
+								document
+									.getElementById("currentInput")
+									.focus({ preventScroll: false });
+							});
 							document
 								.getElementById("currentInput")
 								.focus({ preventScroll: false });
@@ -143,6 +160,9 @@ class Onboarding extends Component {
 				<p style={{ textAlign: "right" }}>
 					<a href="https://twitter.com/paveli" target="blank">
 						<TwitterIcon size="30" color="grey" />
+					</a>{" "}
+					<a href="https://t.me/paveliv" target="blank">
+						<TelegramIcon size="30" color="grey" />
 					</a>{" "}
 					<a href="https://github.com/paveli/Flow-Writer-App" target="blank">
 						<GithubIcon size="30" color="grey" />
