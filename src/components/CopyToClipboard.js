@@ -33,7 +33,7 @@ class CopyToClipboard extends Component {
 	render() {
 		return (
 			<Hotkeys
-				keyName="ctrl+c"
+				keyName="ctrl+shift+c"
 				onKeyUp={this.handleClick}
 				filter={event => {
 					return true;

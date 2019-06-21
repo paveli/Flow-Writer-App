@@ -18,7 +18,7 @@ class NewFile extends Component {
 	render() {
 		return (
 			<Hotkeys
-				keyName="ctrl+n"
+				keyName="ctrl+shift+n"
 				onKeyUp={this.handleClick}
 				filter={event => {
 					return true;
