@@ -5,6 +5,7 @@ import styled from "styled-components";
 import AutosizeInput from "./AutosizeInput";
 
 import Clipboard from "../includes/Clipboard";
+import Statistics from "./Statistics";
 
 import { updateText, updateLatestText, updateTitle } from "../store/actions";
 
@@ -141,7 +142,7 @@ class TextEditor extends Component {
 			}
 
 			if (keyPressed === 13) {
-				latestText += "\n";
+				latestText = latestText.trimRight() + "\n";
 				paragpraphIncerement++;
 			}
 
@@ -160,7 +161,8 @@ class TextEditor extends Component {
 
 	render() {
 		return (
-			<Wrapper id="TextEditor"
+			<Wrapper
+				id="TextEditor"
 				onClick={() => {
 					this.editorRef.current.focus({ preventScroll: false });
 				}}
@@ -208,6 +210,7 @@ class TextEditor extends Component {
 						}
 					})}
 				</PreviewWrapper>
+				<Statistics />
 			</Wrapper>
 		);
 	}
