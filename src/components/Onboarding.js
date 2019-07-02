@@ -121,8 +121,8 @@ class Onboarding extends Component {
 						fontWeight: "normal"
 					}}
 				>
-					Flow &mdash; distraction-free writer, that helps to stay focused while
-					writing texts.
+					Flow &mdash; distraction-free writer, which helps to stay focused
+					while writing texts.
 				</h1>
 				<p>
 					Start writing. Move forward. Don't edit (and you can't{" "}
@@ -141,11 +141,13 @@ class Onboarding extends Component {
 						onClick={() => {
 							this.setState({ showOnboarding: "false" });
 							let TextEditor = document.getElementById("TextEditor");
-							TextEditor.requestFullscreen().then(resolve => {
-								document
-									.getElementById("currentInput")
-									.focus({ preventScroll: false });
-							});
+							if (TextEditor.requestFullscreen) {
+								TextEditor.requestFullscreen().then(resolve => {
+									document
+										.getElementById("currentInput")
+										.focus({ preventScroll: false });
+								});
+							}
 							document
 								.getElementById("currentInput")
 								.focus({ preventScroll: false });
