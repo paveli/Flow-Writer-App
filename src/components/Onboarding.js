@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Card, Button } from "rebass";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { Twitter, Github, Telegram } from "styled-icons/boxicons-logos";
+import { Twitter, Github, Telegram, Medium } from "styled-icons/boxicons-logos";
 import { GrinWink, Keyboard } from "styled-icons/fa-regular";
 import * as Cookies from "js-cookie";
 
@@ -53,6 +53,12 @@ const GithubIcon = styled(Github)`
 const TelegramIcon = styled(Telegram)`
 	&:hover {
 		color: #0088cc;
+	}
+`;
+
+const MediumIcon = styled(Medium)`
+	&:hover {
+		color: black;
 	}
 `;
 
@@ -130,8 +136,8 @@ class Onboarding extends Component {
 					).
 				</p>
 				<p>
-					Once finished writing, press CTRL+C to copy text to clipboard. Then
-					paste and edit in your favorite editor.
+					Once finished writing, press CTRL+SHIFT+C to copy text to clipboard.
+					Then paste and edit in your favorite editor.
 				</p>
 				<br />
 
@@ -160,6 +166,9 @@ class Onboarding extends Component {
 				</p>
 
 				<p style={{ textAlign: "right" }}>
+					<a href="https://medium.com/@paveli/write-in-flow-edit-later-406fc74a4689">
+						<MediumIcon size="30" color="grey" />
+					</a>{" "}
 					<a href="https://twitter.com/paveli" target="blank">
 						<TwitterIcon size="30" color="grey" />
 					</a>{" "}
